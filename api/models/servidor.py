@@ -11,38 +11,38 @@ class servidor:
     '''
     @classmethod
     def get_server (cls, server):
-        query = "SELECT nombre_servidor FROM NombreBd.NombreTabla WHERE id_servidor=%s;" 
+        query = "SELECT servidores.nombre_servidor FROM chat_master.servidores WHERE servidores.id_servidor=%s;" 
         params = server.id_servidor
         DatabaseConnection.fetch_one(query,params)
 
     @classmethod
     def get_all_servers (cls):
-        query = "SELECT nombre_servidor FROM NombreBd.NombreTabla;"
-        DatabaseConnection.fetch_all(query)
+        query = "SELECT servidores.id_servidor, servidores.nombre_servidor FROM chat_master.servidores;"
+        result = DatabaseConnection.fetch_all(query)
+        if result is not None:
+            return result
+        return None
 
     @classmethod
     def exists(cls, server):
-        query = "SELECT nombre_servidor FROM NombreBd.NombreTabla WHERE id_servidor=%s;"
+        query = "SELECT servidores.nombre_servidor FROM chat_master.servidores WHERE servidores.id_servidor=%s;"
         params = server.id_servidor,
         result = DatabaseConnection.fetch_one(query, params)
-        if result is not None:
-            return True
-        return False
 
     @classmethod
     def create_server(cls, server):
-        query = "INSERT INTO NombreBd.NombreTabla (nombre_servidor) VALUES (%s);"
+        query = "INSERT INTO chat_master.servidores (servidores.nombre_servidor) VALUES (%s);"
         params = server.nombre_servidor
         DatabaseConnection.execute_query(query, params)
 
     @classmethod
     def change_server_name(cls, server):
-        query = "UPDATE NombreBd.NombreTabla SET nombre_servidor WHERE id_servidor=%s;"
+        query = "UPDATE chat_master.servidores SET servidores.nombre_servidor WHERE servidores.id_servidor=%s;"
         params = server.id_servidor
         DatabaseConnection.execute_query(query,params)
 
     @classmethod
     def delete_server (cls, server):
-        query = "DELETE FROM NombreBd.NombreTabla WHERE id_servidor = %s"
+        query = "DELETE FROM chat_master.servidores WHERE servidores.id_servidor = %s"
         params = server.id_servidor,
         DatabaseConnection.execute_query(query, params)
