@@ -1,18 +1,25 @@
 import mysql.connector
+from config import  Config
 
 class DatabaseConnection:
     _connection = None
-    _config = None
+    #_config = None
     
+    """ @classmethod
+        def get_connection(cls):
+            if cls._connection is None:
+                cls._connection = mysql.connector.connect(
+                    DATABASE_HOST = cls._config['DATABASE_HOST'],
+                    DATABASE_USERNAME = cls._config['DATABASE_USERNAME'],
+                    DATABASE_PORT = cls._config['DATABASE_PORT'],
+                    DATABASE_PASSWORD = cls._config['DATABASE_PASSWORD']
+                )
+            return cls._connection"""
+
     @classmethod
     def get_connection(cls):
         if cls._connection is None:
-            cls._connection = mysql.connector.connect(
-                DATABASE_HOST = cls._config['DATABASE_HOST'],
-                DATABASE_USERNAME = cls._config['DATABASE_USERNAME'],
-                DATABASE_PORT = cls._config['DATABASE_PORT'],
-                DATABASE_PASSWORD = cls._config['DATABASE_PASSWORD']
-            )
+            cls._connection = mysql.connector.connect(host = Config.host, user = Config.user, port = Config.port, password = Config.password, database = 'chat_master')
         return cls._connection
     
     @classmethod

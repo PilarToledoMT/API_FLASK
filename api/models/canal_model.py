@@ -1,4 +1,4 @@
-from ..database import DatabaseConnection
+from..database import DatabaseConnection
 
 class Canal:
     def __init__(self, id_canal, nombre_canal, id_servidor):
