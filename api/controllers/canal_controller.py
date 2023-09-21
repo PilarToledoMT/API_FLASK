@@ -13,15 +13,15 @@ class CanalController:
         if canal_instance:
             response_data = {'id_canal': canal_instance.id_canal,
                             'nombre_canal': canal_instance.nombre_canal,
-                            'id_servidor': canal_instance.id_servidor          
-                }  
+                            'id_servidor': canal_instance.id_servidor
+                            }  
             return jsonify(response_data), 200
         else:
             return {'msg': 'No se encontró el canal'}, 404
         
     @classmethod
     def get_canales(cls):
-        print('hola mundo')
+        print('HOLA MUNDO')
         canales_list = Canal.get_canales()
         canales = []
         for canal in canales_list:
@@ -29,7 +29,6 @@ class CanalController:
                 'id_canal': canal[0],
                 'nombre_canal': canal[1],
                 'id_servidor': canal[2]
-            })
-        
+                })
         return {'canales': canales}, 200
     

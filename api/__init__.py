@@ -1,6 +1,5 @@
 from flask import Flask
 from config import Config
-from .database import DatabaseConnection
 from .routes.canal_route import canal_bp
 
 def init_app():
