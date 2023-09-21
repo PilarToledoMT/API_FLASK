@@ -7,7 +7,7 @@ class DatabaseConnection:
     @classmethod
     def get_connection(cls):
         if cls._connection is None:
-            cls._connection = mysql.connect(
+            cls._connection = mysql.connector.connect(
                 host = cls._config['DATABASE_HOST'],
                 user = cls._config['DATABASE_USERNAME'],
                 port = cls._config['DATABASE_PORT'],
@@ -28,7 +28,7 @@ class DatabaseConnection:
         return cursor
     
     @classmethod
-    def fetch_all(cls, query, params):
+    def fetch_all(cls, query, params=None):
         cursor = cls.get_connection().cursor()
         cursor.execute(query, params)
         

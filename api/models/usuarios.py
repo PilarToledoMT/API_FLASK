@@ -1,7 +1,6 @@
 from ..database import DatabaseConnection
 class Usuarios:
-    def __init__(self, id_usuario,nombre_usuario,nombre,apellido,email,contrasenia,id_imagen):
-        self.id_usuario=id_usuario
+    def __init__(self,id_usuario=None, nombre_usuario=None,nombre=None,apellido=None,email=None,contrasenia=None,id_imagen=None):
         self.nombre_usuario=nombre_usuario
         self.nombre=nombre
         self.apellido=apellido
@@ -10,9 +9,9 @@ class Usuarios:
         self.id_imagen=id_imagen
     
     @classmethod 
-    def get_usuario(self, id_usuario):
-        query="SELECT usuarios.id_usuario, usuarios.nombre_usuario, usuarios.nombre, usuarios.apellido, usuarios.email, usuarios.contrasenia, usuarios.id_imagen FROM chat_master.usuarios WHERE usuarios.id_usuario=%s;"
-        params=id_usuario,
+    def get_usuario(self, email):
+        query="SELECT usuarios.id_usuario, usuarios.nombre_usuario, usuarios.nombre, usuarios.apellido, usuarios.email, usuarios.contrasenia, usuarios.id_imagen FROM chat_master.usuarios WHERE usuarios.email=%s;"
+        params=email,
         result= DatabaseConnection.fetch_one(query,params)
         if result is not None:
             return Usuarios(
@@ -38,7 +37,7 @@ class Usuarios:
 
     @classmethod
     def update_usuario(self, usuario):
-        query="UPDATE chat_master.usuarios SET nombre_usuario=%s, nombre=%s, apellido=%s, email=%s, contrasenia=%s, id_imagen=%s;"
+        query="UPDATE chat_master.usuarios SET nombre_usuario=%s, nombre=%s, apellido=%s, email=%s, contrasenia=%s, id_imagen=%s WHERE id_usuario =%s;"
         params=(usuario.nombre_usuario, usuario.nombre, usuario.apellido, usuario.email, usuario.contrasenia, usuario.id_imagen)
         DatabaseConnection.execute_query(query, params)
         return True
