@@ -5,3 +5,5 @@ servidores_bp = Blueprint('servidores_bp', __name__)
 
 servidores_bp.route('/servidores/<int:id_servidor>', methods = ['GET'])(ServidorController.get_server_controller)
 servidores_bp.route('/servidores', methods = ['GET'])(ServidorController.get_all_servers_controller)
+servidores_bp.route('/servidores', methods = ['POST'])(ServidorController.create_server_controller)
+                                                       

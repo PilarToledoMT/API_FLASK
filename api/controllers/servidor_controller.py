@@ -1,5 +1,5 @@
 from ..models.servidor_model import ServidorModel
-from flask import request,jsonify
+from flask import request,jsonify,json
 
 class ServidorController:
 
@@ -31,6 +31,23 @@ class ServidorController:
             return jsonify(lista_servidores),200
         else:
             return {'mensaje':'no se encontro servidor'}
+        
+    @classmethod
+    def create_server_controller (cls):
+        data = request.json
+        data_instance = ServidorModel(
+            nombre_servidor = data.get('nombre_servidor'),
+            imagen_servidor = data.get('ruta_servidor')
+        )
+
+        if ServidorModel.exists_nombre(data_instance.nombre_servidor):
+            return {'mensaje':'El nombre ya existe'}, 400
+        else:
+            servidor_nuevo = ServidorModel(**data)
+            ServidorModel.create_server_model(servidor_nuevo)
+            return {'message': 'Servidor creado con exito'}, 200
+        
+    
         
 
             

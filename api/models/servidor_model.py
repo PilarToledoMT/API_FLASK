@@ -20,19 +20,20 @@ class ServidorModel:
         return result
         
     @classmethod
-    def exists(cls, servidor):
-        query = "SELECT servidores.nombre_servidor FROM chat_master.servidores WHERE servidores.id_servidor=%s;"
-        params = servidor,
+    def exists_nombre(cls, nombre_servidor):
+        query = "SELECT servidores.nombre_servidor FROM chat_master.servidores WHERE servidores.nombre_servidor=%s;"
+        params = nombre_servidor,
         result = DatabaseConnection.fetch_one(query, params)
         if result is not None:
             return True
         return False
 
     @classmethod
-    def create_server(cls, servidor):
+    def create_server_model(cls,product):
         query = "INSERT INTO chat_master.servidores (servidores.nombre_servidor, servidores.imagen_servidor) VALUES (%s,%s);"
-        params = servidor, 
-        DatabaseConnection.execute_query(query, params)
+        params = product.nombre_servidor, product.imagen_servidor,
+        result = DatabaseConnection.execute_query(query,params)
+        return result
 
     @classmethod
     def change_server_name(cls, servidor):
