@@ -1,48 +1,57 @@
 from ..database import DatabaseConnection
 
-class servidor:
-    def __init__ (self, nombre_servidor=None, id_servidor=None):
+class ServidorModel:
+    def __init__ (self, nombre_servidor=None, id_servidor=None, imagen_servidor=None):
         self.nombre_servidor = nombre_servidor
         self.id_servidor = id_servidor
-
-    #def serialize (self):??
-    '''toma un objeto de la clase servidor y lo convierte en una representación serializada en forma 
-    de diccionario, ya que es fácilmente procesable o transferible.
-    '''
-    @classmethod
-    def get_server (cls, server):
-        query = "SELECT nombre_servidor FROM NombreBd.NombreTabla WHERE id_servidor=%s;" 
-        params = server.id_servidor
-        DatabaseConnection.fetch_one(query,params)
+        self.imagen_servidor = imagen_servidor
 
     @classmethod
+    def get_server_model (cls, id_servidor):
+        query = "SELECT servidores.id_servidor, servidores.nombre_servidor, servidores.imagen_servidor FROM chat_master.servidores WHERE servidores.id_servidor=%s;" 
+        params = id_servidor,
+        result = DatabaseConnection.fetch_one(query,params)
+        if result is not None:
+            return ServidorModel(
+                id_servidor=result[0],
+                nombre_servidor=result[1],
+                imagen_servidor=result[2]
+            )
+        else:
+            return None
+    
+    '''@classmethod
     def get_all_servers (cls):
-        query = "SELECT nombre_servidor FROM NombreBd.NombreTabla;"
-        DatabaseConnection.fetch_all(query)
+        query = "SELECT servidores.id_servidor, servidores.nombre_servidor, servidores.imagen_servidor FROM chat_master.servidores;"
+        result = DatabaseConnection.fetch_all(query)
+        if result is not None:
+            return result
+        return None
 
     @classmethod
-    def exists(cls, server):
-        query = "SELECT nombre_servidor FROM NombreBd.NombreTabla WHERE id_servidor=%s;"
-        params = server.id_servidor,
+    def exists(cls, servidor):
+        query = "SELECT servidores.nombre_servidor FROM chat_master.servidores WHERE servidores.id_servidor=%s;"
+        params = servidor,
         result = DatabaseConnection.fetch_one(query, params)
         if result is not None:
             return True
         return False
 
     @classmethod
-    def create_server(cls, server):
-        query = "INSERT INTO NombreBd.NombreTabla (nombre_servidor) VALUES (%s);"
-        params = server.nombre_servidor
+    def create_server(cls, servidor):
+        query = "INSERT INTO chat_master.servidores (servidores.nombre_servidor, servidores.imagen_servidor) VALUES (%s,%s);"
+        params = servidor, 
         DatabaseConnection.execute_query(query, params)
 
     @classmethod
-    def change_server_name(cls, server):
-        query = "UPDATE NombreBd.NombreTabla SET nombre_servidor WHERE id_servidor=%s;"
-        params = server.id_servidor
+    def change_server_name(cls, servidor):
+        query = "UPDATE chat_master.servidores SET servidores.nombre_servidor WHERE servidores.id_servidor=%s;"
+        params = servidor,
         DatabaseConnection.execute_query(query,params)
 
     @classmethod
-    def delete_server (cls, server):
-        query = "DELETE FROM NombreBd.NombreTabla WHERE id_servidor = %s"
-        params = server.id_servidor,
+    def delete_server (cls, servidor):
+        query = "DELETE FROM chat_master.servidores WHERE servidores.id_servidor = %s"
+        params = servidor,
         DatabaseConnection.execute_query(query, params)
+    '''
