@@ -7,7 +7,7 @@ class DatabaseConnection:
     @classmethod
     def get_connection(cls):
         if cls._connection is None:
-            cls._connection = mysql.connect(
+            cls._connection = mysql.connector.connect(
                 host = cls._config['DATABASE_HOST'],
                 user = cls._config['DATABASE_USERNAME'],
                 port = cls._config['DATABASE_PORT'],
