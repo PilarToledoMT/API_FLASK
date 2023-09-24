@@ -11,23 +11,14 @@ class ServidorModel:
         query = "SELECT servidores.id_servidor, servidores.nombre_servidor, servidores.imagen_servidor FROM chat_master.servidores WHERE servidores.id_servidor=%s;" 
         params = id_servidor,
         result = DatabaseConnection.fetch_one(query,params)
-        if result is not None:
-            return ServidorModel(
-                id_servidor=result[0],
-                nombre_servidor=result[1],
-                imagen_servidor=result[2]
-            )
-        else:
-            return None
-    
-    '''@classmethod
-    def get_all_servers (cls):
+        return result
+        
+    @classmethod
+    def get_all_servers_model (cls):
         query = "SELECT servidores.id_servidor, servidores.nombre_servidor, servidores.imagen_servidor FROM chat_master.servidores;"
         result = DatabaseConnection.fetch_all(query)
-        if result is not None:
-            return result
-        return None
-
+        return result
+        
     @classmethod
     def exists(cls, servidor):
         query = "SELECT servidores.nombre_servidor FROM chat_master.servidores WHERE servidores.id_servidor=%s;"
@@ -54,4 +45,4 @@ class ServidorModel:
         query = "DELETE FROM chat_master.servidores WHERE servidores.id_servidor = %s"
         params = servidor,
         DatabaseConnection.execute_query(query, params)
-    '''
+    
