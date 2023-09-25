@@ -53,7 +53,6 @@ class ServidorModel:
             query = "UPDATE chat_master.servidores SET nombre_servidor = %s WHERE id_servidor = %s"
             params = (new_name, server_instance[0])  
             DatabaseConnection.execute_query(query, params)
-
             return True  
         else:
             return False
