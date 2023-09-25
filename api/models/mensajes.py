@@ -1,7 +1,7 @@
 from ..database import DatabaseConnection
 
 class Mensajes:
-    def __init__(self, id_mensaje, mensaje, fecha_hora, id_usuario, id_canal):
+    def __init__(self, id_mensaje = None, mensaje = None, fecha_hora = None, id_usuario = None, id_canal = None):
         self.id_mensaje = id_mensaje
         self.mensaje = mensaje
         self.fecha_hora = fecha_hora
@@ -25,9 +25,10 @@ class Mensajes:
             return None
     
     @classmethod
-    def get_mensajes(cls):
-        query = "SELECT id_mensaje, mensaje, fecha_hora, id_usuario, id_canal FROM chat_master.mensajes;"
-        result = DatabaseConnection.fetch_all(query)
+    def get_mensajes(cls, id_canal):
+        query = "SELECT id_mensaje, mensaje, fecha_hora, id_usuario, id_canal FROM chat_master.mensajes WHERE mensajes.id_canal = %s;"
+        params = (id_canal,)
+        result = DatabaseConnection.fetch_all(query, params)
         if result is not None:
             return result
         else:
@@ -36,7 +37,7 @@ class Mensajes:
     @classmethod
     def create_mensaje(self, mensaje):
         query = "INSERT INTO chat_master.mensajes(mensaje, fecha_hora, id_usuario, id_canal) VALUES(%s, %s, %s, %s);"
-        params =(mensaje.mensaje, mensaje.fecha_hora, mensaje.id_usuario, mensaje.id_canal)
+        params = (mensaje.mensaje, mensaje.fecha_hora, mensaje.id_usuario, mensaje.id_canal)
         DatabaseConnection.execute_query(query, params)
         return True
     
