@@ -1,6 +1,6 @@
 from ..models.usuarios import Usuarios
 from ..models.imagen_perfil import ImagenPerfil
-from flask import request, jsonify
+from flask import request, jsonify, session
 class UsuarioController:
     @classmethod
     def get_usuario(cls, email):
@@ -76,6 +76,15 @@ class UsuarioController:
         else:
             return{"msg":"No se pudo eliminar el usuario"}
 
-
-
-    
+    @classmethod
+    def login(cls):
+        data = request.json
+        user = Usuarios(
+            email = data.get('email'),
+            contrasenia = data.get('contrasenia')
+        )
+        if Usuarios.is_registered(user):
+            session["email"] = data.get('email')
+            return {'msg': 'Sesión iniciada'}, 200
+        else:
+            return {'msg': 'Usuario o contraseña incorrectos'}, 401
