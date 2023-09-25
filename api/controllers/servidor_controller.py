@@ -8,17 +8,10 @@ class ServidorController:
         server_instance = ServidorModel.get_server_model(id_servidor)
         if server_instance:
             response_data = {
-<<<<<<< HEAD
-                'id_servidor': server_instance.id_servidor,
-                'nombre_servidor': server_instance.nombre_servidor,
-                'imagen_servidor': server_instance.imagen_servidor
-            }
-=======
                 'id_servidor':server_instance[0],
                 'nombre_servidor':server_instance[1],
                 'imagen_servidor':server_instance[2]
                 }
->>>>>>> 79dff22d6821aa28142977aeec1ccb89a4626a2c
             return jsonify(response_data), 200
         else:
             return {'msg': 'No se encontró el servidor'}, 404
