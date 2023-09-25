@@ -14,6 +14,13 @@ class ServidorModel:
         return result
         
     @classmethod
+    def get_server_by_name(cls, nombre_servidor):
+        query = "SELECT servidores.id_servidor, servidores.nombre_servidor, servidores.imagen_servidor FROM chat_master.servidores WHERE servidores.nombre_servidor = %s;" 
+        params = (nombre_servidor,)
+        result = DatabaseConnection.fetch_one(query, params)
+        return result
+
+    @classmethod
     def get_all_servers_model (cls):
         query = "SELECT servidores.id_servidor, servidores.nombre_servidor, servidores.imagen_servidor FROM chat_master.servidores;"
         result = DatabaseConnection.fetch_all(query)
@@ -35,12 +42,25 @@ class ServidorModel:
         result = DatabaseConnection.execute_query(query,params)
         return result
 
+
     @classmethod
-    def change_server_name_model(cls, id_servidor, nuevo_nombre_servidor):
-        query = "UPDATE chat_master.servidores SET nombre_servidor = %s WHERE id_servidor = %s;"
-        params = (nuevo_nombre_servidor, id_servidor)
-        result= DatabaseConnection.execute_query(query, params)
-        return result
+    def update_server_name(cls, current_name, new_name):
+        # Check if the new name already exists in the database
+        if cls.exists_nombre(new_name):
+            return False  # Name already exists, return False to indicate failure
+
+        # Get the server instance by the current name
+        server_instance = cls.get_server_by_name(current_name)
+
+        if server_instance:
+            # Update the server's name
+            query = "UPDATE chat_master.servidores SET nombre_servidor = %s WHERE id_servidor = %s"
+            params = (new_name, server_instance[0])  # Assuming server_instance[0] is the server's id
+            DatabaseConnection.execute_query(query, params)
+
+            return True  # Name updated successfully
+        else:
+            return False
     
     @classmethod
     def delete_server (cls, servidor):
