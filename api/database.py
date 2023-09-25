@@ -28,7 +28,11 @@ class DatabaseConnection:
         return cursor
     
     @classmethod
+<<<<<<< HEAD
     def fetch_all(cls, query, params = None):
+=======
+    def fetch_all(cls, query, params=None):
+>>>>>>> 79dff22d6821aa28142977aeec1ccb89a4626a2c
         cursor = cls.get_connection().cursor()
         cursor.execute(query, params)
         
