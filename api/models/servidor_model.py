@@ -27,9 +27,9 @@ class ServidorModel:
         return result
         
     @classmethod
-    def exists_nombre(cls, nombre_servidor):
-        query = "SELECT servidores.nombre_servidor FROM chat_master.servidores WHERE servidores.nombre_servidor=%s;"
-        params = nombre_servidor,
+    def exists(cls, id_servidor):
+        query = "SELECT servidores.nombre_servidor FROM chat_master.servidores WHERE servidores.id_servidor=%s;"
+        params = id_servidor,
         result = DatabaseConnection.fetch_one(query, params)
         if result is not None:
             return True
@@ -44,22 +44,15 @@ class ServidorModel:
 
 
     @classmethod
-    def update_server_name(cls, current_name, new_name):
-        if cls.exists_nombre(new_name):
-            return False  
-
-        server_instance = cls.get_server_by_name(current_name)
-        if server_instance:
-            query = "UPDATE chat_master.servidores SET nombre_servidor = %s WHERE id_servidor = %s"
-            params = (new_name, server_instance[0])  
-            DatabaseConnection.execute_query(query, params)
-            return True  
-        else:
-            return False
+    def update_server_model(cls, servidor):
+        query = "UPDATE chat_master.servidores SET servidores.nombre_servidor=%s, servidores.imagen_servidor=%s WHERE servidores.id_servidor=%s;"
+        params = servidor.nombre_servidor, servidor.imagen_servidor, servidor.id_servidor
+        result = DatabaseConnection.execute_query(query, params)
+        return result  
     
     @classmethod
-    def delete_server (cls, servidor):
+    def delete_server_model (cls, id_servidor):
         query = "DELETE FROM chat_master.servidores WHERE servidores.id_servidor = %s"
-        params = servidor,
+        params = id_servidor,
         DatabaseConnection.execute_query(query, params)
-    
+        return True

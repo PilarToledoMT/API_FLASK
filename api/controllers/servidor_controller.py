@@ -33,14 +33,14 @@ class ServidorController:
             return {'mensaje':'no se encontro servidor'}
         
     @classmethod
-    def create_server_controller (cls):
+    def create_server_controller (cls, id_servidor):
         data = request.json
         data_instance = ServidorModel(
             nombre_servidor = data.get('nombre_servidor'),
-            imagen_servidor = data.get('ruta_servidor')
+            imagen_servidor = data.get('imagen_servidor')
         )
 
-        if ServidorModel.exists_nombre(data_instance.nombre_servidor):
+        if ServidorModel.exists(id_servidor):
             return {'mensaje':'El nombre ya existe'}, 400
         else:
             servidor_nuevo = ServidorModel(**data)
@@ -48,15 +48,26 @@ class ServidorController:
             return {'message': 'Servidor creado con exito'}, 200
     
     @classmethod
-    def change_server_name_controller(cls):
+    def update_server_controller(cls, id_servidor):
         data = request.json
-        new_name = data.get('nuevo_nombre')
-        current_name = data.get('nombre_actual')  # Assuming the current name is provided in the JSON data
-
-        # Use the ServidorModel method to update the server's name
-        success = ServidorModel.update_server_name(current_name, new_name)
-
-        if success:
+        data_instance = ServidorModel(
+            nombre_servidor = data.get('nombre_servidor'),
+            imagen_servidor = data.get('imagen_servidor')
+            )
+        if ServidorModel.exists(id_servidor):
+            servidor_instance = ServidorModel(
+                id_servidor=id_servidor,
+                nombre_servidor=data_instance.nombre_servidor,
+                imagen_servidor=data_instance.imagen_servidor
+            )
+            ServidorModel.update_server_model(servidor_instance)
             return {'mensaje': 'Nombre del servidor actualizado con éxito'}, 200
         else:
-            return {'mensaje': 'No se encontró el servidor con el nombre actual proporcionado o el nuevo nombre ya existe'}, 400
+            return {'mensaje': 'No se encontró el servidor '}, 400
+        
+    @classmethod
+    def delete_server_controller (cls, id_servidor):
+        if ServidorModel.delete_server_model(id_servidor):
+            return {'mensaje': 'Servidor eliminado con exito'}, 204
+        else:
+            return {'mensaje': 'No se pudo eliminar el servidor'}        
