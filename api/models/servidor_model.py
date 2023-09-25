@@ -36,9 +36,9 @@ class ServidorModel:
         return False
 
     @classmethod
-    def create_server_model(cls,product):
-        query = "INSERT INTO chat_master.servidores (servidores.nombre_servidor, servidores.imagen_servidor) VALUES (%s,%s);"
-        params = product.nombre_servidor, product.imagen_servidor,
+    def create_server_model(cls,servidor):
+        query = "INSERT INTO chat_master.servidores (servidores.id_servidor, servidores.nombre_servidor, servidores.imagen_servidor) VALUES (%s,%s,%s);"
+        params = servidor.id_servidor, servidor.nombre_servidor, servidor.imagen_servidor,
         result = DatabaseConnection.execute_query(query,params)
         return result
 

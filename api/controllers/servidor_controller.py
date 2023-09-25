@@ -33,32 +33,23 @@ class ServidorController:
             return {'mensaje':'no se encontro servidor'}
         
     @classmethod
-    def create_server_controller (cls, id_servidor):
+    def create_server_controller (cls):
         data = request.json
-        data_instance = ServidorModel(
-            nombre_servidor = data.get('nombre_servidor'),
-            imagen_servidor = data.get('imagen_servidor')
+        servidor_instance = ServidorModel(
+            nombre_servidor=data.get('nombre_servidor'),
+            imagen_servidor=data.get('imagen_servidor')
         )
+        ServidorModel.create_server_model(servidor_instance)
+        return {'message': 'Servidor creado con exito'}, 200
 
-        if ServidorModel.exists(id_servidor):
-            return {'mensaje':'El nombre ya existe'}, 400
-        else:
-            servidor_nuevo = ServidorModel(**data)
-            ServidorModel.create_server_model(servidor_nuevo)
-            return {'message': 'Servidor creado con exito'}, 200
-    
     @classmethod
     def update_server_controller(cls, id_servidor):
         data = request.json
-        data_instance = ServidorModel(
-            nombre_servidor = data.get('nombre_servidor'),
-            imagen_servidor = data.get('imagen_servidor')
-            )
         if ServidorModel.exists(id_servidor):
             servidor_instance = ServidorModel(
                 id_servidor=id_servidor,
-                nombre_servidor=data_instance.nombre_servidor,
-                imagen_servidor=data_instance.imagen_servidor
+                nombre_servidor=data.get('nombre_servidor'),
+                imagen_servidor=data.get('imagen_servidor')
             )
             ServidorModel.update_server_model(servidor_instance)
             return {'mensaje': 'Nombre del servidor actualizado con éxito'}, 200
