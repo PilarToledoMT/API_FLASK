@@ -36,11 +36,12 @@ class ServidorModel:
         return result
 
     @classmethod
-    def change_server_name(cls, servidor):
-        query = "UPDATE chat_master.servidores SET servidores.nombre_servidor WHERE servidores.id_servidor=%s;"
-        params = servidor,
-        DatabaseConnection.execute_query(query,params)
-
+    def change_server_name_model(cls, id_servidor, nuevo_nombre_servidor):
+        query = "UPDATE chat_master.servidores SET nombre_servidor = %s WHERE id_servidor = %s;"
+        params = (nuevo_nombre_servidor, id_servidor)
+        result= DatabaseConnection.execute_query(query, params)
+        return result
+    
     @classmethod
     def delete_server (cls, servidor):
         query = "DELETE FROM chat_master.servidores WHERE servidores.id_servidor = %s"

@@ -47,7 +47,18 @@ class ServidorController:
             ServidorModel.create_server_model(servidor_nuevo)
             return {'message': 'Servidor creado con exito'}, 200
         
-    
+    @classmethod
+    def change_server_name_controller(cls, id_servidor):
+        data = request.json
+        nuevo_nombre_servidor = data.get('nombre_servidor')
+
+        if not ServidorModel.exists_nombre(nuevo_nombre_servidor):
+            return {'mensaje': 'El nombre del servidor proporcionado no existe'}, 400
+
+        if ServidorModel.change_server_name_model(id_servidor, nuevo_nombre_servidor):
+            return {'message': 'Servidor modificado con éxito'}, 200
+        else:
+            return {'mensaje': 'Error al modificar el servidor'}, 500
         
 
             
