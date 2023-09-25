@@ -1,9 +1,9 @@
 from ..database import DatabaseConnection
 
 class ServidorModel:
-    def __init__ (self, nombre_servidor=None, id_servidor=None, imagen_servidor=None):
-        self.nombre_servidor = nombre_servidor
+    def __init__ (self, id_servidor=None, nombre_servidor=None, imagen_servidor=None):
         self.id_servidor = id_servidor
+        self.nombre_servidor = nombre_servidor
         self.imagen_servidor = imagen_servidor
 
     @classmethod

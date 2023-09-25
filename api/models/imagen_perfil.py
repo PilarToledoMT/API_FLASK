@@ -1,6 +1,6 @@
 from ..database import DatabaseConnection
 class ImagenPerfil:
-    def __init__(self, id_imagen,imagen):
+    def __init__(self, id_imagen=None,imagen=None):
         self.id_imagen=id_imagen
         self.imagen=imagen
 
@@ -16,3 +16,34 @@ class ImagenPerfil:
             )
         else:
             return None
+
+    @classmethod
+    def get_imagenes(cls):
+        query="SELECT id_imagen, imagen FROM chat_master.imagen_perfil;"
+        result= DatabaseConnection.fetch_all(query)
+        if result is not None:
+            return result
+        else:
+            return None
+
+    @classmethod
+    def create_imagen(cls, imagen):
+        query ="INSERT INTO chat_master.imagen_perfil(imagen) VALUES (%s);"
+        params=(imagen.imagen,)
+        DatabaseConnection.execute_query(query, params)
+        return True
+    
+    @classmethod
+    def update_imagen(cls, imagen):
+        query="UPDATE chat_master.imagen_perfil SET imagen=%s WHERE id_imagen=%s;"
+        params=(imagen.imagen,)
+        DatabaseConnection.execute_query(query,params)
+        return True
+
+    @classmethod
+    def delete_imagen(cls, id_imagen):
+        query="DELETE FROM chat_master.imagen_perfil WHERE imagen_perfil.id_imagen=%s;"
+        params= id_imagen, 
+        DatabaseConnection.execute_query(query, params)
+        return True
+        
