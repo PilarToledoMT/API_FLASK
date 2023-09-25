@@ -45,20 +45,16 @@ class ServidorModel:
 
     @classmethod
     def update_server_name(cls, current_name, new_name):
-        # Check if the new name already exists in the database
         if cls.exists_nombre(new_name):
-            return False  # Name already exists, return False to indicate failure
+            return False  
 
-        # Get the server instance by the current name
         server_instance = cls.get_server_by_name(current_name)
-
         if server_instance:
-            # Update the server's name
             query = "UPDATE chat_master.servidores SET nombre_servidor = %s WHERE id_servidor = %s"
-            params = (new_name, server_instance[0])  # Assuming server_instance[0] is the server's id
+            params = (new_name, server_instance[0])  
             DatabaseConnection.execute_query(query, params)
 
-            return True  # Name updated successfully
+            return True  
         else:
             return False
     
