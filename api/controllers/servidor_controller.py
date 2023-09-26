@@ -57,8 +57,9 @@ class ServidorController:
             return {'mensaje': 'No se encontró el servidor '}, 400
         
     @classmethod
-    def delete_server_controller (cls, id_servidor):
+    def delete_server_controller(cls, id_servidor):
         if ServidorModel.delete_server_model(id_servidor):
-            return {'mensaje': 'Servidor eliminado con exito'}, 204
+            return {'mensaje': 'Servidor eliminado con éxito'}, 204
         else:
-            return {'mensaje': 'No se pudo eliminar el servidor'}        
+            return {'mensaje': 'No se pudo eliminar el servidor'}, 500
+        

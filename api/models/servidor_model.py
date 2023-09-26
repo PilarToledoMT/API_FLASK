@@ -52,6 +52,21 @@ class ServidorModel:
     
     @classmethod
     def delete_server_model (cls, id_servidor):
+        # Eliminar registros relacionados en la tabla mensajes
+        query_delete_relations_mensajes = "DELETE FROM chat_master.mensajes WHERE id_canal IN (SELECT id_canal FROM chat_master.canales WHERE id_servidor = %s);"
+        params_delete_relations_mensajes = (id_servidor,)
+        DatabaseConnection.execute_query(query_delete_relations_mensajes, params_delete_relations_mensajes)
+
+        # Eliminar registros relacionados en la tabla canales
+        query_delete_relations_canales = "DELETE FROM chat_master.canales WHERE id_servidor = %s;"
+        params_delete_relations_canales = (id_servidor,)
+        DatabaseConnection.execute_query(query_delete_relations_canales, params_delete_relations_canales)
+
+        # Eliminar registros relacionados en usuario_servidor
+        query_delete_relations_usuario_servidor = "DELETE FROM chat_master.usuario_servidor WHERE id_servidor = %s;"
+        params_delete_relations_usuario_servidor = (id_servidor,)
+        DatabaseConnection.execute_query(query_delete_relations_usuario_servidor, params_delete_relations_usuario_servidor)
+
         query = "DELETE FROM chat_master.servidores WHERE servidores.id_servidor = %s"
         params = id_servidor,
         DatabaseConnection.execute_query(query, params)
