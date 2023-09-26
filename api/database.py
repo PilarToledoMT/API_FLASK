@@ -1,9 +1,8 @@
 import mysql.connector
 
-
 class DatabaseConnection:
     _connection = None
-    #_config = None
+    _config = None
     
     @classmethod
     def get_connection(cls):
@@ -15,7 +14,7 @@ class DatabaseConnection:
                 password = cls._config['DATABASE_PASSWORD']
             )
         return cls._connection
-
+    
     @classmethod
     def set_config(cls, config):
         cls._config = config
