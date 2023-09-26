@@ -6,6 +6,7 @@ from .routes.usuarios_bp import usuarios_bp
 from .routes.imagen_perfil_bp import imagen_perfil_bp
 from .routes.servidores_bp import servidores_bp
 from .routes.mensajes_bp import mensajes_bp
+from .routes.canal_route_bp import canal_bp
 
 def init_app():
     app = Flask (__name__, static_folder = Config.STATIC_FOLDER, template_folder = Config.TEMPLATE_FOLDER)
@@ -16,6 +17,7 @@ def init_app():
     app.register_blueprint(imagen_perfil_bp)
     app.register_blueprint(servidores_bp)
     app.register_blueprint(mensajes_bp)
+    app.register_blueprint(canal_bp)
 
     CORS(app)
     

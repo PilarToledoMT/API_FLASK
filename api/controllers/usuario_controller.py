@@ -53,10 +53,10 @@ class UsuarioController:
         return {"msg":"Usuario creado"},200
     
     @classmethod
-    def update_usuario(cls,id_usuario):
-        usuario_instance=Usuarios.get_usuario(id_usuario)
-        usuario=Usuarios(
-            id_usuario=usuario_instance.id_usuario,
+    def update_usuario(cls,email):
+        usuario_instance=Usuarios.get_usuario(email)
+        usuario = Usuarios(
+            id_usuario= usuario_instance.id_usuario,
             nombre_usuario=request.args.get("nombre_usuario"),
             nombre=request.args.get("nombre"),
             apellido=request.args.get("apellido"),
