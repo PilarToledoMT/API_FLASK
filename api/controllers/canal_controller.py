@@ -1,4 +1,4 @@
-from ..models.canal_model import Canal
+from ..models.canal import Canal
 from flask import request, jsonify
 
 class CanalController:
