@@ -58,7 +58,7 @@ class Usuarios:
     
     @classmethod
     def is_registered(cls, usuario):
-        query = "SELECT user_id FROM chat_master.usuarios WHERE email = %(email)s and contrasenia = %(contrasenia)s"
+        query = "SELECT id_usuario FROM chat_master.usuarios WHERE email = %(email)s and contrasenia = %(contrasenia)s"
         params = usuario.__dict__
         result = DatabaseConnection.fetch_one(query, params=params)
         
