@@ -13,12 +13,11 @@ def init_app():
     
     app.config.from_object(Config)
     DatabaseConnection.set_config(app.config)
+    CORS(app, resources={r"/*": {"origins": "*"}})
+    
     app.register_blueprint(usuarios_bp)
     app.register_blueprint(imagen_perfil_bp)
     app.register_blueprint(servidores_bp)
     app.register_blueprint(mensajes_bp)
-    app.register_blueprint(canal_bp)
-
-    CORS(app)
     
     return app

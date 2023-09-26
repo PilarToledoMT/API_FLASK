@@ -58,10 +58,10 @@ class Usuarios:
         return True
     
     @classmethod
-    def is_registered(cls, usuario):
-        query = "SELECT id_usuario FROM chat_master.usuarios WHERE email = %(email)s and contrasenia = %(contrasenia)s"
-        params = usuario.__dict__
-        result = DatabaseConnection.fetch_one(query, params=params)
+    def is_registered(cls, user):
+        query = "SELECT id_usuario FROM chat_master.usuarios WHERE email = %(email)s AND contrasenia = %(contrasenia)s;"
+        params = user.__dict__
+        result = DatabaseConnection.fetch_one(query, params = params)
         
         if result is not None:
             return True

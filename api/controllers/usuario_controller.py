@@ -81,10 +81,10 @@ class UsuarioController:
         data = request.json
         user = Usuarios(
             email = data.get('email'),
-            contrasenia = data.get('contrasenia')
+            password = data.get('contrasenia')
         )
         if Usuarios.is_registered(user):
-            session["email"] = data.get('email')
-            return {'msg': 'Sesión iniciada'}, 200
+            session['email'] = data.get('email')
+            return {'msg': 'Sesión iniciada con éxito'}, 200
         else:
-            return {'msg': 'Usuario o contraseña incorrectos'}, 401
+            return {'msg': 'Usuario o contraseña incorrecto'}, 401
