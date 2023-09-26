@@ -81,7 +81,7 @@ class UsuarioController:
         data = request.json
         user = Usuarios(
             email = data.get('email'),
-            password = data.get('contrasenia')
+            contrasenia = data.get('contrasenia')
         )
         if Usuarios.is_registered(user):
             session['email'] = data.get('email')
