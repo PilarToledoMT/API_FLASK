@@ -78,17 +78,13 @@ class UsuarioController:
 
     @classmethod
     def login(cls):
-        if request.method == 'POST':
-            try:
-                email = request.form['email']
-                contrasenia = request.form['contrasenia']
-                usuario_model = Usuarios()
-                usuario = usuario_model.login(email, contrasenia)
-                
-                if usuario:
-                    session['id_usuario'] = usuario[0]
-                    return {'msg': 'Inicio de sesión exitoso'}, 200
-                else:
-                    return {'msg': "Credenciales incorrectas"}, 401
-            except KeyError:
-                return {'msg': 'Campo "email" faltante en la solicitud'}, 400
+        data = request.json
+        user = Usuarios(
+            email = data.get('email'),
+            password = data.get('contrasenia')
+        )
+        if Usuarios.is_registered(user):
+            session['email'] = data.get('email')
+            return {'msg': 'Sesión iniciada con éxito'}, 200
+        else:
+            return {'msg': 'Usuario o contraseña incorrecto'}, 401
