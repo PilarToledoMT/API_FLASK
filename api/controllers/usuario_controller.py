@@ -87,4 +87,4 @@ class UsuarioController:
             session['email'] = data.get('email')
             return {'msg': 'Sesión iniciada con éxito'}, 200
         else:
-            return {'msg': 'Usuario o contraseña incorrecto'}, 401
+            return {'error': 'Usuario o contraseña incorrecto'}, 401
