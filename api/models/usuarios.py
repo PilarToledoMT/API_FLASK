@@ -1,6 +1,7 @@
 from ..database import DatabaseConnection
 class Usuarios:
     def __init__(self,id_usuario=None, nombre_usuario=None,nombre=None,apellido=None,email=None,contrasenia=None,id_imagen=None):
+        self.id_usuario = id_usuario
         self.nombre_usuario=nombre_usuario
         self.nombre=nombre
         self.apellido=apellido
@@ -37,8 +38,8 @@ class Usuarios:
 
     @classmethod
     def update_usuario(self, usuario):
-        query="UPDATE chat_master.usuarios SET nombre_usuario=%s, nombre=%s, apellido=%s, email=%s, contrasenia=%s, id_imagen=%s WHERE id_usuario =%s;"
-        params=(usuario.nombre_usuario, usuario.nombre, usuario.apellido, usuario.email, usuario.contrasenia, usuario.id_imagen)
+        query="UPDATE chat_master.usuarios SET nombre_usuario=%s, nombre=%s, apellido=%s, email=%s, contrasenia=%s, id_imagen=%s WHERE id_usuario = %s;"
+        params=(usuario.nombre_usuario, usuario.nombre, usuario.apellido, usuario.email, usuario.contrasenia, usuario.id_imagen, usuario.id_usuario)
         DatabaseConnection.execute_query(query, params)
         return True
     
