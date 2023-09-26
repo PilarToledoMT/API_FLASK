@@ -1,5 +1,5 @@
 import mysql.connector
-from config import Config
+
 
 class DatabaseConnection:
     _connection = None
@@ -9,11 +9,10 @@ class DatabaseConnection:
     def get_connection(cls):
         if cls._connection is None:
             cls._connection = mysql.connector.connect(
-                host = Config.host,
-                user = Config.user,
-                port = Config.port,
-                password = Config.password,
-                database = Config.database
+                host = cls._config['DATABASE_HOST'],
+                user = cls._config['DATABASE_USERNAME'],
+                port = cls._config['DATABASE_PORT'],
+                password = cls._config['DATABASE_PASSWORD']
             )
         return cls._connection
 
