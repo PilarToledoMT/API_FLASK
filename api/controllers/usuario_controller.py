@@ -41,13 +41,14 @@ class UsuarioController:
     
     @classmethod 
     def create_usuario(cls):
+        data = request.json
         usuario=Usuarios(
-            nombre_usuario=request.args.get("nombre_usuario"),
-            nombre=request.args.get("nombre"),
-            apellido=request.args.get("apellido"),
-            email=request.args.get("email"),
-            contrasenia=request.args.get("contrasenia"),
-            id_imagen=request.args.get("id_imagen")
+            nombre_usuario=data.get("nombre_usuario"),
+            nombre=data.get("nombre"),
+            apellido=data.get("apellido"),
+            email=data.get("email"),
+            contrasenia=data.get("contrasenia"),
+            id_imagen=data.get("id_imagen")
         )
         Usuarios.create_usuario(usuario)
         return {"msg":"Usuario creado"},200
