@@ -19,5 +19,6 @@ def init_app():
     app.register_blueprint(imagen_perfil_bp)
     app.register_blueprint(servidores_bp)
     app.register_blueprint(mensajes_bp)
+    app.register_blueprint(canal_bp)
     
     return app
