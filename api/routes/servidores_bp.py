@@ -8,3 +8,4 @@ servidores_bp.route('/servidores', methods = ['GET'])(ServidorController.get_all
 servidores_bp.route('/servidores', methods = ['POST'])(ServidorController.create_server_controller)
 servidores_bp.route('/servidores/<int:id_servidor>', methods = ['PUT'])(ServidorController.update_server_controller)
 servidores_bp.route('/servidores/<int:id_servidor>', methods = ['DELETE'])(ServidorController.delete_server_controller)
+servidores_bp.route('/servidor/<int:id_usuario>', methods = ['GET'])(ServidorController.mostrar_servidores_usuario)

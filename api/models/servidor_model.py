@@ -71,3 +71,14 @@ class ServidorModel:
         params = id_servidor,
         DatabaseConnection.execute_query(query, params)
         return True
+    
+    @classmethod
+    def get_servidores_usuario(cls, id_usuario):
+        DatabaseConnection.execute_query("USE chat_master;")
+        query = """SELECT servidores.id_servidor, servidores.nombre_servidor, servidores.imagen_servidor
+                    FROM chat_master.usuario_servidor
+                    JOIN servidores ON usuario_servidor.id_servidor = servidores.id_servidor
+                    WHERE chat_master.usuario_servidor.id_usuario = %s"""
+        params = id_usuario,
+        result = DatabaseConnection.fetch_all(query, params)
+        return result

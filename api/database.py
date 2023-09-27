@@ -11,7 +11,7 @@ class DatabaseConnection:
                 host = cls._config['DATABASE_HOST'],
                 user = cls._config['DATABASE_USERNAME'],
                 port = cls._config['DATABASE_PORT'],
-                password = cls._config['DATABASE_PASSWORD']
+                password = cls._config['DATABASE_PASSWORD'],
             )
         return cls._connection
     
@@ -20,7 +20,7 @@ class DatabaseConnection:
         cls._config = config
     
     @classmethod
-    def execute_query(cls, query, params):
+    def execute_query(cls, query, params=None):
         cursor = cls.get_connection().cursor()
         cursor.execute(query, params)
         cls._connection.commit()

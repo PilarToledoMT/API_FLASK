@@ -62,4 +62,19 @@ class ServidorController:
             return {'mensaje': 'Servidor eliminado con éxito'}, 204
         else:
             return {'mensaje': 'No se pudo eliminar el servidor'}, 500
-        
+    
+    @classmethod
+    def mostrar_servidores_usuario(cls, id_usuario):
+        servidores = ServidorModel.get_servidores_usuario(id_usuario)
+        if servidores:
+            lista_servidores = []
+            for servidor in servidores:
+                response = {
+                    'id_servidor':servidor[0],
+                    'nombre_servidor':servidor[1],
+                    'imagen_servidor':servidor[2]
+                }
+                lista_servidores.append(response)
+            return jsonify(lista_servidores),200
+        else:
+            return {'mensaje':'no se encontro servidor'}
