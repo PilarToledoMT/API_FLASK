@@ -2,8 +2,8 @@ from ..models.imagen_perfil import ImagenPerfil
 from flask import request, jsonify
 class ImagenPerfilController:
     @classmethod 
-    def get_imagen(cls, id_imagen):
-        imagen_instance=ImagenPerfil.get_imagen(id_imagen)
+    def get_imagen(cls, imagen):
+        imagen_instance=ImagenPerfil.get_imagen(imagen)
         if imagen_instance:
             response_data={
                 "id_imagen":imagen_instance.id_imagen,
@@ -30,7 +30,6 @@ class ImagenPerfilController:
     @classmethod
     def create_imagen(cls):
         imagen=ImagenPerfil(
-            id_imagen=request.args.get("id_imagen"),
             imagen=request.args.get("imagen")
         )
         ImagenPerfil.create_imagen(imagen)
