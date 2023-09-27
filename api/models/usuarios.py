@@ -46,7 +46,7 @@ class Usuarios:
     @classmethod
     def create_usuario(self, usuario):
         query="INSERT INTO chat_master.usuarios(nombre_usuario, nombre, apellido, email, contrasenia, id_imagen) VALUES(%s, %s, %s, %s, %s, %s);"
-        params=(usuario.nombre_usuario, usuario.nombre, usuario.apellido, usuario.email, usuario.contrasenia, usuario.id_imagen)
+        params=(usuario.nombre_usuario, usuario.nombre, usuario.apellido, usuario.email, usuario.contrasenia, 1)
         DatabaseConnection.execute_query(query, params)
         return True
 
