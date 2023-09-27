@@ -29,11 +29,13 @@ class ImagenPerfilController:
 
     @classmethod
     def create_imagen(cls):
-        imagen=ImagenPerfil(
-            imagen=request.args.get("imagen")
-        )
-        ImagenPerfil.create_imagen(imagen)
-        return {"msg":"Imagen creada con exito"},200
+        imagen_parametro = request.args.get('imagen')
+        if imagen_parametro:
+            imagen = ImagenPerfil(imagen=imagen_parametro)
+            ImagenPerfil.create_imagen(imagen)
+            return {"msg":"Imagen creada con exito"},200
+        else:
+            return {'msg':"No se pudo crear la imagen de perfil"}, 400
 
     @classmethod
     def update_imagen(cls, id_imagen):
