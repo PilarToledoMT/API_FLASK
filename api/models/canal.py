@@ -28,8 +28,6 @@ class Canal:
             return result
         else:
             return None
-
-
         
     @classmethod
     def create_canal(cls, canal):
