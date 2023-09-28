@@ -11,7 +11,7 @@ class MensajesController:
                 'id_mensaje': mensaje[0],
                 'mensaje': mensaje[1],
                 'fecha_hora': mensaje[2],
-                'id_usuario': mensaje[3],
+                'nombre_usuario': mensaje[3],
                 'id_canal': mensaje[4]
             })
         
