@@ -24,12 +24,12 @@ INSERT INTO chat_master.usuario_servidor(id_usuario, id_servidor) VALUES (3,2);
 INSERT INTO chat_master.usuario_servidor(id_usuario, id_servidor) VALUES (4,1);
 INSERT INTO chat_master.usuario_servidor(id_usuario, id_servidor) VALUES (4,2);
 
-INSERT INTO chat_master.canales(nombre_canal, id_servidor) VALUES ("#Club de lectura", 1);
-INSERT INTO chat_master.canales(nombre_canal, id_servidor) VALUES ("#Escritores emergentes", 1);
-INSERT INTO chat_master.canales(nombre_canal, id_servidor) VALUES ("#Recomendaciones", 1);
-INSERT INTO chat_master.canales(nombre_canal, id_servidor) VALUES ("#Preguntas técnicas", 2);
-INSERT INTO chat_master.canales(nombre_canal, id_servidor) VALUES ("#Proyectos compartidos", 2);
-INSERT INTO chat_master.canales(nombre_canal, id_servidor) VALUES ("#Recursos útiles", 2);
+INSERT INTO chat_master.canales(nombre_canal, id_servidor) VALUES ("Club de lectura", 1);
+INSERT INTO chat_master.canales(nombre_canal, id_servidor) VALUES ("Escritores emergentes", 1);
+INSERT INTO chat_master.canales(nombre_canal, id_servidor) VALUES ("Recomendaciones", 1);
+INSERT INTO chat_master.canales(nombre_canal, id_servidor) VALUES ("Preguntas técnicas", 2);
+INSERT INTO chat_master.canales(nombre_canal, id_servidor) VALUES ("Proyectos compartidos", 2);
+INSERT INTO chat_master.canales(nombre_canal, id_servidor) VALUES ("Recursos útiles", 2);
 
 INSERT INTO chat_master.mensajes(mensaje, fecha_hora, id_usuario, id_canal) VALUES ("Hola a todos! soy nuevo en este club de lectura. Alguién ha leído alguna obra de Sanderson?", NOW(), 1, 1);
 INSERT INTO chat_master.mensajes(mensaje, fecha_hora, id_usuario, id_canal) VALUES ("Hola, yo leí El Archivo de las Tormentas", NOW(), 2, 1);

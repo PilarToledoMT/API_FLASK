@@ -25,13 +25,14 @@ class Mensajes:
             return None
     
     @classmethod
-    def get_mensajes(cls, id_canal):
-        query = """SELECT mensajes.id_mensaje, mensajes.mensaje, mensajes.fecha_hora, usuarios.nombre_usuario, mensajes.id_canal
+    def get_mensajes(cls, nombre_canal):
+        query = """SELECT mensajes.id_mensaje, mensajes.mensaje, mensajes.fecha_hora, usuarios.nombre_usuario, canales.nombre_canal
                     FROM chat_master.mensajes
                     INNER JOIN chat_master.usuarios ON mensajes.id_usuario = usuarios.id_usuario
-                    WHERE mensajes.id_canal = %s
+                    INNER JOIN chat_master.canales ON mensajes.id_canal = canales.id_canal
+                    WHERE canales.nombre_canal = %s
                     ORDER BY mensajes.fecha_hora ASC;"""
-        params = (id_canal,)
+        params = (nombre_canal,)
         result = DatabaseConnection.fetch_all(query, params)
         if result is not None:
             return result

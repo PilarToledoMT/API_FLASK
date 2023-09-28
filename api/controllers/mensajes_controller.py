@@ -3,8 +3,8 @@ from flask import jsonify, request
 
 class MensajesController:
     @classmethod
-    def get_mensajes(cls, id_canal):
-        lista_mensajes = Mensajes.get_mensajes(id_canal)
+    def get_mensajes(cls, nombre_canal):
+        lista_mensajes = Mensajes.get_mensajes(nombre_canal)
         mensajes = []
         for mensaje in lista_mensajes:
             mensajes.append({
@@ -12,7 +12,7 @@ class MensajesController:
                 'mensaje': mensaje[1],
                 'fecha_hora': mensaje[2],
                 'nombre_usuario': mensaje[3],
-                'id_canal': mensaje[4]
+                'nombre_canal': mensaje[4]
             })
         
         response = {
