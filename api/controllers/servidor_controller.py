@@ -14,7 +14,7 @@ class ServidorController:
                 }
             return jsonify(response_data), 200
         else:
-            return {'msg': 'No se encontró el servidor'}, 404
+            return jsonify({'msg': 'No se encontró el servidor'}), 404
         
     @classmethod
     def get_all_servers_controller (cls):
@@ -30,7 +30,7 @@ class ServidorController:
                 lista_servidores.append(response)
             return jsonify(lista_servidores),200
         else:
-            return {'mensaje':'no se encontro servidor'}
+            return jsonify({'mensaje':'no se encontro servidor'}),404
         
     @classmethod
     def create_server_controller (cls):
@@ -39,8 +39,11 @@ class ServidorController:
             nombre_servidor=data.get('nombre_servidor'),
             imagen_servidor=data.get('imagen_servidor')
         )
-        ServidorModel.create_server_model(servidor_instance)
-        return {'message': 'Servidor creado con exito'}, 200
+        if ServidorModel.existsByName(servidor_instance.nombre_servidor):
+            return jsonify({'mensaje':'el nombre del servidor ya se encuentra en la base de datos'}),404
+        else:
+            ServidorModel.create_server_model(servidor_instance)
+            return jsonify({'message': 'Servidor creado con exito'}), 200
 
     @classmethod
     def update_server_controller(cls, id_servidor):
@@ -52,16 +55,16 @@ class ServidorController:
                 imagen_servidor=data.get('imagen_servidor')
             )
             ServidorModel.update_server_model(servidor_instance)
-            return {'mensaje': 'Nombre del servidor actualizado con éxito'}, 200
+            return jsonify({'mensaje': 'Nombre del servidor actualizado con éxito'}), 200
         else:
-            return {'mensaje': 'No se encontró el servidor '}, 400
+            return jsonify({'mensaje': 'No se encontró el servidor '}), 400
         
     @classmethod
     def delete_server_controller(cls, id_servidor):
         if ServidorModel.delete_server_model(id_servidor):
-            return {'mensaje': 'Servidor eliminado con éxito'}, 204
+            return jsonify({'mensaje': 'Servidor eliminado con éxito'}), 204
         else:
-            return {'mensaje': 'No se pudo eliminar el servidor'}, 500
+            return jsonify({'mensaje': 'No se pudo eliminar el servidor'}), 500
     
     @classmethod
     def mostrar_servidores_usuario(cls, id_usuario):
@@ -77,7 +80,7 @@ class ServidorController:
                 lista_servidores.append(response)
             return jsonify(lista_servidores),200
         else:
-            return {'mensaje':'no se encontro servidor'}
+            return jsonify({'mensaje':'no se encontro servidor'}), 404
         
 
     @classmethod
