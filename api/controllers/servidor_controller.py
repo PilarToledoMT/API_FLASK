@@ -95,10 +95,8 @@ class ServidorController:
             print(server)
             if server:
                 response = {
-                    #'id_servidor': server[0],
                     'nombre_servidor': server[0]
-                    #'imagen_servidor': server[2]
-                }
+                    }
                 return jsonify(response), 200
             else:
                 return jsonify({'msg': 'No se encontraron servidores que coincidan con el término de búsqueda'}), 404
