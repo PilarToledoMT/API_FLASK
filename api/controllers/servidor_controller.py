@@ -115,7 +115,6 @@ class ServidorController:
             return jsonify({'message': 'No se encontraron servidores con el nombre parcial proporcionado'}), 404
 
         # Formatear los resultados para obtener todos los nombres de servidores que coinciden
-        server_names = [result[0] for result in results]
-        print(server_names)
-
-        return jsonify({'servers': server_names}), 200
+        list_servers = [result[0] for result in results]
+        
+        return jsonify({'servers': list_servers}), 200
