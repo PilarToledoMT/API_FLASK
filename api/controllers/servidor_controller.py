@@ -48,7 +48,7 @@ class ServidorController:
     @classmethod
     def update_server_controller(cls, id_servidor):
         data = request.json
-        if ServidorModel.exists(id_servidor):
+        if ServidorModel.existsByID(id_servidor):
             servidor_instance = ServidorModel(
                 id_servidor=id_servidor,
                 nombre_servidor=data.get('nombre_servidor'),
@@ -57,14 +57,15 @@ class ServidorController:
             ServidorModel.update_server_model(servidor_instance)
             return jsonify({'mensaje': 'Nombre del servidor actualizado con éxito'}), 200
         else:
-            return jsonify({'mensaje': 'No se encontró el servidor '}), 400
+            return jsonify({'mensaje': 'No se encontró el servidor '}), 404
         
     @classmethod
     def delete_server_controller(cls, id_servidor):
-        if ServidorModel.delete_server_model(id_servidor):
-            return jsonify({'mensaje': 'Servidor eliminado con éxito'}), 204
+        if ServidorModel.existsByID(id_servidor): 
+            ServidorModel.delete_server_model(id_servidor)
+            return jsonify({'mensaje': 'Servidor eliminado con éxito'}), 200
         else:
-            return jsonify({'mensaje': 'No se pudo eliminar el servidor'}), 500
+            return jsonify({'mensaje': 'El servidor no existe por lo que no pudo ser eliminado'}), 404
     
     @classmethod
     def mostrar_servidores_usuario(cls, id_usuario):
@@ -100,9 +101,9 @@ class ServidorController:
                 }
                 return jsonify(response), 200
             else:
-                return {'msg': 'No se encontraron servidores que coincidan con el término de búsqueda'}, 404
+                return jsonify({'msg': 'No se encontraron servidores que coincidan con el término de búsqueda'}), 404
         else:
-            return {'msg': 'Proporciona un término de búsqueda válido'}, 400
+            return jsonify({'msg': 'Proporciona un término de búsqueda válido'}), 400
 
     @classmethod
     def get_servers_by_partial_name(cls):
