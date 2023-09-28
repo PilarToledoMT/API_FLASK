@@ -15,7 +15,7 @@ class ServidorModel:
         
     @classmethod
     def get_server_by_name(cls, nombre_servidor):
-        query = "SELECT servidores.id_servidor, servidores.nombre_servidor, servidores.imagen_servidor FROM chat_master.servidores WHERE servidores.nombre_servidor = %s;" 
+        query = "SELECT servidores.nombre_servidor FROM chat_master.servidores WHERE servidores.nombre_servidor = %s;" 
         params = (nombre_servidor,)
         result = DatabaseConnection.fetch_one(query, params)
         return result

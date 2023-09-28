@@ -78,3 +78,26 @@ class ServidorController:
             return jsonify(lista_servidores),200
         else:
             return {'mensaje':'no se encontro servidor'}
+        
+
+    @classmethod
+    def search_servers_by_name_controller(cls):
+        data = request.json
+        buscar_servidor = data.get('nombre_servidor')
+        print(buscar_servidor)
+        
+        if buscar_servidor:
+            server = ServidorModel.get_server_by_name(buscar_servidor)
+            print(server)
+            if server:
+                response = {
+                    #'id_servidor': server[0],
+                    'nombre_servidor': server[0]
+                    #'imagen_servidor': server[2]
+                }
+                return jsonify(response), 200
+            else:
+                return {'msg': 'No se encontraron servidores que coincidan con el término de búsqueda'}, 404
+        else:
+            return {'msg': 'Proporciona un término de búsqueda válido'}, 400
+
