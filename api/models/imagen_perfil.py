@@ -46,4 +46,4 @@ class ImagenPerfil:
         params= id_imagen, 
         DatabaseConnection.execute_query(query, params)
         return True
-        
+    

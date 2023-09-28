@@ -30,7 +30,6 @@ class ImagenPerfilController:
     @classmethod
     def create_imagen(cls):
         imagen=ImagenPerfil(
-            id_imagen=request.args.get("id_imagen"),
             imagen=request.args.get("imagen")
         )
         ImagenPerfil.create_imagen(imagen)
@@ -54,6 +53,4 @@ class ImagenPerfilController:
             return {"msg":"Imagen eliminada"},204
         else:
             return {"msg":"No se pudo eliminar la imagen"}
-
-
     
