@@ -101,3 +101,21 @@ class ServidorController:
         else:
             return {'msg': 'Proporciona un término de búsqueda válido'}, 400
 
+    @classmethod
+    def get_servers_by_partial_name(cls):
+        data=request.json
+        partial_name = data.get('partial_name')
+
+        if not partial_name:
+            return jsonify({'error': 'Debe ingresar un nombre'}), 400
+
+        results = ServidorModel.get_servers_by_partial_name(partial_name)
+
+        if not results:
+            return jsonify({'message': 'No se encontraron servidores con el nombre parcial proporcionado'}), 404
+
+        # Formatear los resultados para obtener todos los nombres de servidores que coinciden
+        server_names = [result[0] for result in results]
+        print(server_names)
+
+        return jsonify({'servers': server_names}), 200

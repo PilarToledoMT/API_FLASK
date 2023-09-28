@@ -19,6 +19,15 @@ class ServidorModel:
         params = (nombre_servidor,)
         result = DatabaseConnection.fetch_one(query, params)
         return result
+    
+    @classmethod
+    def get_servers_by_partial_name(cls, partial_name):
+        query = "SELECT servidores.nombre_servidor FROM chat_master.servidores WHERE servidores.nombre_servidor LIKE %s;"
+        # Usamos % antes y después de partial_name para buscar nombres que contengan la cadena dada.
+        params = ('%' + partial_name + '%',)
+        results = DatabaseConnection.fetch_all(query, params)
+        return results
+
 
     @classmethod
     def get_all_servers_model (cls):
