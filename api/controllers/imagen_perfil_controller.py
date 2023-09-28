@@ -2,8 +2,8 @@ from ..models.imagen_perfil import ImagenPerfil
 from flask import request, jsonify
 class ImagenPerfilController:
     @classmethod 
-    def get_imagen(cls, imagen):
-        imagen_instance=ImagenPerfil.get_imagen(imagen)
+    def get_imagen(cls, id_imagen):
+        imagen_instance=ImagenPerfil.get_imagen(id_imagen)
         if imagen_instance:
             response_data={
                 "id_imagen":imagen_instance.id_imagen,
@@ -29,13 +29,11 @@ class ImagenPerfilController:
 
     @classmethod
     def create_imagen(cls):
-        imagen_parametro = request.args.get('imagen')
-        if imagen_parametro:
-            imagen = ImagenPerfil(imagen=imagen_parametro)
-            ImagenPerfil.create_imagen(imagen)
-            return {"msg":"Imagen creada con exito"},200
-        else:
-            return {'msg':"No se pudo crear la imagen de perfil"}, 400
+        imagen=ImagenPerfil(
+            imagen=request.args.get("imagen")
+        )
+        ImagenPerfil.create_imagen(imagen)
+        return {"msg":"Imagen creada con exito"},200
 
     @classmethod
     def update_imagen(cls, id_imagen):
@@ -55,6 +53,4 @@ class ImagenPerfilController:
             return {"msg":"Imagen eliminada"},204
         else:
             return {"msg":"No se pudo eliminar la imagen"}
-
-
     

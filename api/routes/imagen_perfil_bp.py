@@ -3,7 +3,7 @@ from ..controllers.imagen_perfil_controller import ImagenPerfilController
 
 imagen_perfil_bp=Blueprint("imagen_perfil_bp", __name__)
 
-imagen_perfil_bp.route("/imagenes/<string:imagen>", methods=["GET"])(ImagenPerfilController.get_imagen)
+imagen_perfil_bp.route("/imagenes/<int:id_imagen>", methods=["GET"])(ImagenPerfilController.get_imagen)
 
 imagen_perfil_bp.route("/imagenes", methods=["GET"])(ImagenPerfilController.get_imagenes)
 

@@ -5,9 +5,9 @@ class ImagenPerfil:
         self.imagen=imagen
 
     @classmethod
-    def get_imagen(cls, imagen):
-        query="SELECT imagen_perfil.id_imagen, imagen_perfil.imagen FROM chat_master.imagen_perfil WHERE imagen_perfil.imagen=%s;"
-        params= imagen,
+    def get_imagen(cls, id_imagen):
+        query="SELECT imagen_perfil.id_imagen, imagen_perfil.imagen FROM chat_master.imagen_perfil WHERE imagen_perfil.id_imagen=%s;"
+        params= id_imagen,
         result= DatabaseConnection.fetch_one(query, params)
         if result is not None:
             return ImagenPerfil(
@@ -46,4 +46,4 @@ class ImagenPerfil:
         params= id_imagen, 
         DatabaseConnection.execute_query(query, params)
         return True
-        
+    
